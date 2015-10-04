@@ -1,0 +1,34 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "WA1OUI",
+    "longName": "Pinwheel-II",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/Pinwheel_II_menu_icon.png",
+                "name": "IMAGE_MENU_ICON",
+                "type": "png"
+            },
+            {
+                "characterRegex": "[0-9]",
+                "file": "fonts/Roboto-Condensed.ttf",
+                "name": "FONT_ROBOTO_CONDENSED_19",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Pinwheel-II",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "6de7d09f-d70f-4a04-bb26-5b1e41d4920b",
+    "versionLabel": "1.00",
+    "watchapp": {
+        "watchface": true
+    }
+}
