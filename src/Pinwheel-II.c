@@ -126,7 +126,26 @@ void line_layer_update_callback(Layer *LineLayer, GContext* batctx) {
      }
 }
 
+// Chalk Circle Battery Line
+void RoundBatteryLayer_update_callback(Layer *RoundBatteryLayer, GContext* Roundctx) {
+        graphics_context_set_antialiased(Roundctx, true);
+        graphics_context_set_fill_color(Roundctx, GColorBlack);
+        graphics_fill_radial(Roundctx, GRect(0, 0, 180, 180), GOvalScaleModeFillCircle, 10 /*thickness*/, 0, TRIG_MAX_ANGLE);
+        
+        
+  if (batterycharging == 1) {
+          graphics_context_set_fill_color(Roundctx, GColorBlue);
+          graphics_fill_radial(Roundctx, GRect(0, 0, 180, 180), GOvalScaleModeFillCircle, 8 /*thickness*/, 0, TRIG_MAX_ANGLE);
 
+     } else if (batterychargepct > 20) {
+          graphics_context_set_fill_color(Roundctx, GColorGreen);
+          graphics_fill_radial(Roundctx, GRect(0, 0, 180, 180), GOvalScaleModeFillCircle, 8 /*thickness*/, 0, batterychargepct * 0.01  * TRIG_MAX_ANGLE);
+
+     } else {
+          graphics_context_set_fill_color(Roundctx, GColorRed);
+          graphics_fill_radial(Roundctx, GRect(0, 0, 180, 180), GOvalScaleModeFillCircle, 8 /*thickness*/, 0, batterychargepct  * 0.01 * TRIG_MAX_ANGLE);
+     }    
+}
 static void triangle_display_layer_update_callback(Layer *layer, GContext *ctx) {
      for(ix = 0; ix < 6; ix = ix + 1 ) {
 	      gpath_rotate_to(triangle_overlay_path, (TRIG_MAX_ANGLE / 360) * angle);
@@ -169,8 +188,11 @@ static void hands_update_proc(Layer *layer, GContext *hands_ctx) {
     }  
 
   graphics_fill_circle(hands_ctx, GPoint(hands_bounds.size.w / 2, hands_bounds.size.h / 2), 13);
-  graphics_draw_text(hands_ctx, day_text, fontRobotoCondensed19, GRect(61, 72, 24, 24), GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
- 
+  #ifdef PBL_PLATFORM_BASALT
+      graphics_draw_text(hands_ctx, day_text, fontRobotoCondensed19, GRect(61, 72, 24, 24), GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
+  #else   //  PEBBLE_PLATFORM_CHALK
+      graphics_draw_text(hands_ctx, day_text, fontRobotoCondensed19, GRect(78, 78, 24, 24), GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
+  #endif
 
 }
 
@@ -241,12 +263,17 @@ void handle_init(void) {
   layer_add_child(window_layer, s_hands_layer);
   
   // Battery Line Basalt
-
+   #ifdef PBL_PLATFORM_BASALT
       GRect line_frame = GRect(22, 160, 104, 6);
       LineLayer = layer_create(line_frame);
       layer_set_update_proc(LineLayer, line_layer_update_callback);
       layer_add_child(window_layer, LineLayer);
-  
+   #else //Chalk
+      GRect line_round_frame = GRect(1, 1, 180, 180);
+      RoundBatteryLayer = layer_create(line_round_frame);
+      layer_set_update_proc(RoundBatteryLayer, RoundBatteryLayer_update_callback);
+      layer_add_child(window_layer,RoundBatteryLayer);
+   #endif
      
   //Service subscribes:
   battery_state_service_subscribe(&handle_battery);
