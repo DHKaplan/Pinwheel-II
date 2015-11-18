@@ -124,6 +124,20 @@ void line_layer_update_callback(Layer *LineLayer, GContext* batctx) {
           graphics_context_set_fill_color(batctx, GColorRed);
           graphics_fill_rect(batctx, GRect(2, 1, batterychargepct, 4), 3, GCornersAll);
      }
+  
+      GRect hash_bounds = layer_get_bounds(LineLayer);
+      graphics_context_set_fill_color(batctx, GColorWhite);
+      graphics_fill_rect(batctx, GRect(89, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(79, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(69, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(59, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(49, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(39, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(29, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(19, 1, 3, 4), 3, GCornerNone);
+      graphics_fill_rect(batctx, GRect(9, 1, 3, 4), 3, GCornerNone);
+
+
 }
 
 // Chalk Circle Battery Line
