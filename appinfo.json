@@ -9,6 +9,16 @@
     "resources": {
         "media": [
             {
+                "file": "images/pinwheel_menu_icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_MENU_ICON",
+                "targetPlatforms": [
+                    "basalt",
+                    "chalk"
+                ],
+                "type": "png"
+            },
+            {
                 "characterRegex": "[0-9]",
                 "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_19",
@@ -25,6 +35,6 @@
     "uuid": "6de7d09f-d70f-4a04-bb26-5b1e41d4920b",
     "versionLabel": "2.10",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }
